@@ -179,6 +179,7 @@ class Evaluator:
 
         else:
             outcome = Fore.LIGHTYELLOW_EX + "SKIP"
+            zscore = None
             rating_symbol = ""
 
         print(
