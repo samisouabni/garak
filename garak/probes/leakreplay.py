@@ -64,9 +64,19 @@ class LiteratureCloze(Probe):
 
     def _postprocess_hook(self, attempt: Attempt) -> Attempt:
         for idx, thread in enumerate(attempt.messages):
-            attempt.messages[idx][-1]["content"] = re.sub(
-                "</?name>", "", thread[-1]["content"] or ""
-            )
+            # Ensure content is not None before applying regex
+            if thread and thread[-1]["content"] is not None:
+                attempt.messages[idx][-1]["content"] = re.sub(
+                    "</?name>", "", thread[-1]["content"]
+                )
+            else:
+                # Handle None or empty thread case by logging or assigning a default string
+                logging.warning(f"No content to process for message index {idx}. Setting default empty string.")
+                if thread:
+                    attempt.messages[idx][-1]["content"] = ""
+                else:
+                    # If thread is entirely absent, log this as it might indicate a larger issue
+                    logging.error(f"Thread at index {idx} is missing or malformed.")
         return attempt
 
 
