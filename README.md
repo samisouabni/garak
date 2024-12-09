@@ -58,7 +58,7 @@ python -m pip install -U garak
 The standard pip version of `garak` is updated periodically. To get a fresher version from GitHub, try:
 
 ```
-python -m pip install -U git+https://github.com/NVIDIA/garak.git@main
+python -m pip install -U git+https://github.com/samisouabni/garak.git@main
 ```
 
 ### Clone from source
